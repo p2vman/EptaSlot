@@ -1,0 +1,26 @@
+enable: true
+
+slots:
+  #slot reserve
+  reserve: 15
+
+server:
+  #change maxplayers in the server list
+  players_change: true
+
+handlers:
+  - logic: "slots + reserve > online"
+    permission: "server.reservedslot"
+
+logic: "online < slots"
+
+#The right to connect when the slots are full
+permissions:
+  server.reservedslot:
+    description: "Access to reserved slots"
+    default: op
+
+
+text:
+  #Message when the server is full
+  kick: "The server is full"

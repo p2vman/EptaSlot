@@ -1,0 +1,23 @@
+name: EptaSlot
+version: '1.0'
+main: io.p2vman.eptaSlot.EptaSlot
+api-version: '1.18'
+
+commands:
+  eptaslot:
+    permission: eptaslot.admin
+    aliases:
+      - "es"
+
+permissions:
+  eptaslot.admin:
+    default: op
+
+softdepend:
+  - "PlaceholderAPI"
+
+loadbefore:
+  - "PlaceholderAPI"
+
+libraries:
+  - 'org.bstats:bstats-bukkit:3.1.0'
