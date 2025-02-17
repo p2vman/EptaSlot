@@ -1,6 +1,7 @@
 package io.p2vman.eptaSlot;
 
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonObject;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -24,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class EptaSlot extends JavaPlugin implements Listener {
     private List<Permission> permissions;
@@ -50,6 +53,21 @@ public final class EptaSlot extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        try {
+            Updater updater = Updater.getInstance();
+            JsonObject obj = updater.getLasted();
+            if (!getDescription().getVersion().equals(obj.get("name").getAsString())) {
+                Logger LOGGER = getLogger();
+                LOGGER.log(Level.WARNING, "---------- Outdated Version ----------");
+                LOGGER.log(Level.WARNING, "");
+                LOGGER.log(Level.WARNING, "new version:");
+                LOGGER.log(Level.WARNING, updater.getVersionUrl());
+                LOGGER.log(Level.WARNING, "");
+                LOGGER.log(Level.WARNING, "---------------------------------");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         saveDefaultConfig();
         reloadConfig();
         getServer().getPluginManager().registerEvents(this, this);
